@@ -69,7 +69,9 @@ const Index = (props: IndexProps) => {
       try {
         const firebaseBackendInstance = getFirebaseBackend();
         const fetchedContacts = await firebaseBackendInstance.fetchContacts();
-        setContactsData(fetchedContacts);
+
+        console.log('fetchedContacts', fetchedContacts)
+        setContactsData(prevContacts => [...prevContacts, contactsData]);
         setContacts(fetchedContacts);
       } catch (error) {
         console.error('Error fetching contacts:', error);
@@ -78,7 +80,10 @@ const Index = (props: IndexProps) => {
 
     useEffect(() => {
       fetchContactsFromFirebase();
-    }, []); // Keep the dependency array empty to run only once
+    }, []); 
+    
+    
+    // Keep the dependency array empty to run only once
     // console.log(contacts);
     
 
